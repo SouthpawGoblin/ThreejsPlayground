@@ -1,0 +1,16 @@
+{
+  "name": "ThreejsPlayground",
+  "authors": [
+    "Yinzhe_Qi <qiyzh@neusoft.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "index.html",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.1.1",
+    "angular": "^1.7.0",
+    "jquery": "^3.3.1"
+  }
+}

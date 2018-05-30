@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" class="w-100 h-100" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>ThreejsPlayground</title>
+
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+<body class="w-100 h-100 col-12" ng-controller="MainCtrl">
+<div class="h-100 row">
+    <aside class="h-100 col-2 border-right p-0">
+        <ul id="demo-list" class="nav nav-pills nav-fill flex-column">
+            <li class="nav-item" ng-repeat="demo in availableDemos">
+                <a id="demo-{{demo.name}}" class="nav-link border-bottom text-center" style="cursor: pointer;" ng-click="selectDemo(demo)">{{demo.name}}</a>
+            </li>
+        </ul>
+    </aside>
+    <div id="render" class="h-100 col-10 p-0" style="overflow: hidden;" demo></div>
+</div>
+
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+
+<script type="text/javascript" src="threejs/three.js"></script>
+<script type="text/javascript" src="threejs/OrbitControls.js"></script>
+
+<script type="text/javascript" src="src/demos/demos.js"></script>
+<script type="text/javascript" src="src/demos/simpleCube.js"></script>
+<script type="text/javascript" src="src/demos/rotateCube.js"></script>
+
+<script type="text/javascript" src="src/app/app.js"></script>
+</body>
+</html>
