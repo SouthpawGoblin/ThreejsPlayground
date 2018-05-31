@@ -2,7 +2,7 @@
 
 !function(global) {
 
-    var SimpleCube = global.SimpleCube = function() {
+    var demo = global.Basic = function() {
         this.options = null;
         this.parentDom = null;
         this.scene = null;
@@ -11,7 +11,7 @@
         this.mesh = null;
     };
 
-    SimpleCube.prototype.init = function(parentDom, options, callback) {
+    demo.prototype.init = function(parentDom, options, callback) {
 
         var width = Math.floor(parentDom.clientWidth);
         var height = Math.floor(parentDom.clientHeight);
@@ -21,7 +21,7 @@
 
         //scene
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color('#aaaaaa');
+        this.scene.background = new THREE.Color('#000000');
 
         //camera
         this.camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
@@ -69,7 +69,7 @@
         callback && callback();
     };
 
-    SimpleCube.prototype.render = function(callback) {
+    demo.prototype.render = function(callback) {
         var self = this;
 
         var animate = function () {
@@ -88,7 +88,7 @@
         callback && callback();
     };
 
-    SimpleCube.prototype.dispose = function(callback) {
+    demo.prototype.dispose = function(callback) {
 
         this.parentDom && this.parentDom.removeChild(this.renderer.domElement);
 

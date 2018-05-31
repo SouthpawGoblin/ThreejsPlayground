@@ -5,8 +5,9 @@ var app = angular.module('app', []);
 app.service('DemoService', [function() {
 
     this.demos = [
-        {name: 'SimpleCube', class: window.DEMOS.SimpleCube},
-        {name: 'RotateCube', class: window.DEMOS.RotateCube}
+        {name: 'Basic', class: window.DEMOS.Basic},
+        {name: 'OrbitControls', class: window.DEMOS.OrbitControls},
+        {name: 'SpotLight', class: window.DEMOS.SpotLight}
     ];
 
 }]);
