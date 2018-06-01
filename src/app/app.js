@@ -7,7 +7,8 @@ app.service('DemoService', [function() {
     this.demos = [
         {name: 'Basic', class: window.DEMOS.Basic, desc: '基本几何体展示'},
         {name: 'OrbitControls', class: window.DEMOS.OrbitControls, desc: '鼠标视野控制。左键拖拽：旋转；滚轮：调整远近；右键拖拽：平移'},
-        {name: 'LightAndMaterial', class: window.DEMOS.LightAndMaterial, desc: '光源及材质效果展示。'}
+        {name: 'LightAndMaterial', class: window.DEMOS.LightAndMaterial, desc: '光源及材质效果展示。'},
+        {name: 'Particles', class: window.DEMOS.Particles, desc: '粒子系统展示。'}
     ];
 
 }]);
