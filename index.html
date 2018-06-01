@@ -5,6 +5,7 @@
     <title>ThreejsPlayground</title>
 
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="lib/datGUI/dat.gui.css">
 </head>
 <body class="w-100 h-100 col-12" ng-controller="MainCtrl">
 <div class="h-100 row">
@@ -15,20 +16,21 @@
             </li>
         </ul>
     </aside>
-    <div id="render" class="h-100 col-10 p-0" style="overflow: hidden;" demo></div>
+    <div id="render" class="h-100 col-10 p-0 position-relative" style="overflow: hidden;" demo></div>
 </div>
 
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 
-<script type="text/javascript" src="threejs/three.js"></script>
-<script type="text/javascript" src="threejs/OrbitControls.js"></script>
+<script type="text/javascript" src="lib/datGUI/dat.gui.min.js"></script>
+<script type="text/javascript" src="lib/threejs/three.js"></script>
+<script type="text/javascript" src="lib/threejs/OrbitControls.js"></script>
 
 <script type="text/javascript" src="src/demos/demos.js"></script>
 <script type="text/javascript" src="src/demos/basic.js"></script>
 <script type="text/javascript" src="src/demos/orbitControls.js"></script>
-<script type="text/javascript" src="src/demos/spotLight.js"></script>
+<script type="text/javascript" src="src/demos/lightAndMaterial.js"></script>
 
 <script type="text/javascript" src="src/app/app.js"></script>
 </body>

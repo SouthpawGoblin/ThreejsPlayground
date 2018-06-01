@@ -5,9 +5,9 @@ var app = angular.module('app', []);
 app.service('DemoService', [function() {
 
     this.demos = [
-        {name: 'Basic', class: window.DEMOS.Basic},
-        {name: 'OrbitControls', class: window.DEMOS.OrbitControls},
-        {name: 'SpotLight', class: window.DEMOS.SpotLight}
+        {name: 'Basic', class: window.DEMOS.Basic, desc: '基本几何体展示'},
+        {name: 'OrbitControls', class: window.DEMOS.OrbitControls, desc: '鼠标视野控制。左键拖拽：旋转；滚轮：调整远近；右键拖拽：平移'},
+        {name: 'LightAndMaterial', class: window.DEMOS.LightAndMaterial, desc: '光源及材质效果展示。'}
     ];
 
 }]);
@@ -35,17 +35,22 @@ app.directive('demo', function() {
     return {
         restrict: "A",
         scope: {},
+        template: '<span style="display: inline-block;padding: 3px;position: absolute;right: 0;bottom: 0;background-color: #ffffff;color: #000000;">{{demo.desc}}</span>',
         link: function (scope, element, attrs) {
 
             scope.demo = null;
+            scope.demoInstance = null;
 
             scope.$on('demoChanged', function(event, demo) {
 
-                scope.demo && scope.demo.dispose();
+                scope.demo = demo;
 
-                scope.demo = new demo.class();
-                scope.demo.init(element[0]);
-                scope.demo.render();
+                scope.demoInstance && scope.demoInstance.dispose();
+
+                scope.demoInstance = new demo.class();
+                scope.demoInstance.init(element[0]);
+                scope.demoInstance.showGUI();
+                scope.demoInstance.render();
             })
         }
     };
