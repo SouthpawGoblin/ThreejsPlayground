@@ -109,6 +109,8 @@
             node.remove();
         });
 
+        var self = this;
+
         var gui = new dat.GUI();
         gui.add(options, 'geometryType',
             ['圆形-Circle',
@@ -123,11 +125,11 @@
                 '八面体-Octahedron',
                 '四面体-Tetrahedron',
                 '十二面体-Dodecahedron']).onChange(function() {
-            this.mesh = updateMeshByOptions(this.scene);
+            self.mesh = updateMeshByOptions(self.scene);
         });
 
         gui.add(options, 'showWireframe').onChange(function() {
-            this.mesh = updateMeshByOptions(this.scene);
+            self.mesh = updateMeshByOptions(self.scene);
         })
     };
 
