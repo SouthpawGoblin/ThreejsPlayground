@@ -39,6 +39,7 @@
 
     var demo = global.OrbitControls = function() {
         this.parentDom = null;
+        this.stats = null;
         this.scene = null;
         this.camera = null;
         this.renderer = null;
@@ -52,6 +53,11 @@
         var height = Math.floor(parentDom.clientHeight);
 
         this.parentDom = parentDom;
+
+        //stats
+        this.stats = new Stats();
+        this.stats.dom.style.position = "absolute";
+        this.parentDom.appendChild(this.stats.dom);
 
         //scene
         this.scene = new THREE.Scene();
@@ -102,8 +108,10 @@
             if (self.mesh) {
                 requestAnimationFrame( animate );
 
+                self.stats.begin();
                 self.controls.update();
                 self.renderer.render(self.scene, self.camera);
+                self.stats.end();
             }
         };
 
@@ -146,6 +154,7 @@
         this.parentDom && this.parentDom.removeChild(this.renderer.domElement);
 
         this.parentDom = null;
+        this.stats = null;
         this.scene = null;
         this.camera = null;
         this.renderer = null;
