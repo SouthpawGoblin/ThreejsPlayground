@@ -151,7 +151,10 @@
 
     demo.prototype.dispose = function(callback) {
 
-        this.parentDom && this.parentDom.removeChild(this.renderer.domElement);
+        if (this.parentDom) {
+            this.parentDom.removeChild(this.renderer.domElement);
+            this.parentDom.removeChild(this.stats.dom);
+        }
 
         this.parentDom = null;
         this.stats = null;

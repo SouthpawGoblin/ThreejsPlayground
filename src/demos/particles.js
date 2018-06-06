@@ -9,7 +9,6 @@
 
     function updateMeshByOptions(scene) {
         var obj = scene.getObjectByName("mesh");
-        obj && scene.remove(obj);
 
         var geo = new THREE.BufferGeometry();
         var vertices = [];
@@ -21,18 +20,19 @@
         geo.addAttribute('position', new THREE.BufferAttribute(new Float32Array(vertices), 3));
         geo.addAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3));
 
-        var mat = new THREE.PointsMaterial({
-            vertexColors: true
-        });
+        if (obj) {
+            obj.geometry.copy(geo);
+        } else {
+            var mat = new THREE.PointsMaterial({
+                vertexColors: true
+            });
+            obj = new THREE.Points(geo, mat);
+            scene.add(obj);
+        }
+        obj.name = 'mesh';
+        obj.scale.set(1.5, 1.5, 1.5);
 
-        var mesh = new THREE.Points(geo, mat);
-        mesh.name = 'mesh';
-
-        mesh.scale.set(1.5, 1.5, 1.5);
-
-        scene.add(mesh);
-
-        return mesh;
+        return obj;
     }
 
     var demo = global.Particles = function() {
@@ -134,17 +134,20 @@
         var gui = new dat.GUI();
 
         gui.add(options, 'particleCount', 5000, 20000).onChange(function() {
-            self.mesh = updateMeshByOptions(self.scene);
+            self.mesh.copy(updateMeshByOptions(self.scene));
         });
 
         gui.add(options, 'range', 50, 200).onChange(function() {
-            self.mesh = updateMeshByOptions(self.scene);
+            self.mesh.copy(updateMeshByOptions(self.scene));
         });
     };
 
     demo.prototype.dispose = function(callback) {
 
-        this.parentDom.removeChild(this.renderer.domElement);
+        if (this.parentDom) {
+            this.parentDom.removeChild(this.renderer.domElement);
+            this.parentDom.removeChild(this.stats.dom);
+        }
 
         this.parentDom = null;
         this.stats = null;

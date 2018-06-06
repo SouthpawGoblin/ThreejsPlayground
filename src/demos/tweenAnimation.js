@@ -62,14 +62,14 @@
 
         //scene
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color('#000000');
+        this.scene.background = new THREE.Color(0x000000);
 
         //camera
         this.camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
         this.camera.position.set(-4, 6, 5);
 
         //renderer
-        this.renderer = new THREE.WebGLRenderer();
+        this.renderer = new THREE.WebGLRenderer({alpha: true});
         this.renderer.setSize( width, height );
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.parentDom.appendChild(this.renderer.domElement);
@@ -124,9 +124,11 @@
         tweenReset.onUpdate(onTweenUpdate);
 
         function onTweenUpdate() {
-            var newGeo = new THREE.BoxBufferGeometry(this.width, this.height, this.depth);
-            self.mesh.geometry = newGeo;
-            self.mesh.getObjectByName("wire").geometry = new THREE.WireframeGeometry(newGeo);
+            if (self.mesh) {
+                var newGeo = new THREE.BoxBufferGeometry(this.width, this.height, this.depth);
+                self.mesh.geometry.copy(newGeo);
+                self.mesh.getObjectByName("wire").geometry.copy(new THREE.WireframeGeometry(newGeo));
+            }
         }
 
         this.tween = tweenX;
@@ -168,7 +170,11 @@
 
     demo.prototype.dispose = function(callback) {
 
-        this.parentDom && this.parentDom.removeChild(this.renderer.domElement);
+        if (this.parentDom) {
+            this.parentDom.removeChild(this.renderer.domElement);
+            this.parentDom.removeChild(this.stats.dom);
+        }
+        this.tween.stopChainedTweens();
 
         this.parentDom = null;
         this.stats = null;
