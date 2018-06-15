@@ -10,7 +10,8 @@ app.service('DemoService', [function() {
         {name: 'LightAndMaterial', class: window.DEMOS.LightAndMaterial, desc: '光源及材质效果展示'},
         {name: 'Particles', class: window.DEMOS.Particles, desc: '粒子系统展示'},
         {name: 'HoverAndSelect', class: window.DEMOS.HoverAndSelect, desc: '鼠标交互功能：悬浮及点击'},
-        {name: 'TweenAnimation', class: window.DEMOS.TweenAnimation, desc: '简易动画演示'}
+        {name: 'TweenAnimation', class: window.DEMOS.TweenAnimation, desc: '简易动画演示'},
+        {name: 'Physics', class: window.DEMOS.Physics, desc: '物理引擎演示'}
     ];
 
 }]);
