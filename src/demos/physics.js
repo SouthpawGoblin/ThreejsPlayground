@@ -18,10 +18,10 @@
 
         //plane
         var planeGeo = new THREE.PlaneGeometry(100, 100);
-        var planeMat = new THREE.MeshLambertMaterial({
+        var planeMat = Physijs.createMaterial(new THREE.MeshLambertMaterial({
             color: 0x003388,
             // side: THREE.DoubleSide
-        });
+        }), 0.5, 1);
         var plane = new Physijs.PlaneMesh(planeGeo, planeMat);
         plane.rotation.x = -Math.PI / 2;
         scene.add(plane);
@@ -30,9 +30,9 @@
         var interval = 4;
         var startX = -18;
         var boxGeo = new THREE.BoxGeometry(0.5, 5, 3);
-        var boxMat = new THREE.MeshPhongMaterial({
+        var boxMat = Physijs.createMaterial(new THREE.MeshPhongMaterial({
             color: 0x888888
-        });
+        }), 0.2,1);
         for (var i = 0; i < 10; i++) {
             var box = new Physijs.BoxMesh(boxGeo, boxMat);
             box.position.set(startX + interval * i, 2.5, 0);
@@ -41,9 +41,9 @@
 
         //ball
         var ballGeo = new THREE.SphereGeometry(2, 30, 30);
-        var ballMat = new THREE.MeshPhongMaterial({
+        var ballMat = Physijs.createMaterial(new THREE.MeshPhongMaterial({
             color: 0x888800
-        });
+        }), 0.1, 1);
         var ball = new Physijs.SphereMesh(ballGeo, ballMat);
         ball.position.set(startX - 1, 10, 0);
         scene.add(ball);
