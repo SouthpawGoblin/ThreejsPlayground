@@ -20,7 +20,7 @@
         var planeGeo = new THREE.PlaneGeometry(100, 100);
         var planeMat = Physijs.createMaterial(new THREE.MeshLambertMaterial({
             color: 0x003388,
-            // side: THREE.DoubleSide
+            side: THREE.DoubleSide
         }), 0.5, 1);
         var plane = new Physijs.PlaneMesh(planeGeo, planeMat);
         plane.rotation.x = -Math.PI / 2;

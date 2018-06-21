@@ -15,14 +15,12 @@
 
         var ballGeo = new THREE.SphereBufferGeometry(2, 30, 30);
         var ballMat = new THREE['Mesh' + options.ballMaterial.split('-')[1] + 'Material']({
-            color: 0xaa0000,
-            dithering: true
+            color: 0x333333
         });
 
         var planeGeo = new THREE.PlaneBufferGeometry(300, 300);
         var planeMat = new THREE['Mesh' + options.planeMaterial.split('-')[1] + 'Material']({
-            color: 0x000033,
-            dithering: true
+            color: 0x333333
         });
         var plane = new THREE.Mesh(planeGeo, planeMat);
         plane.receiveShadow = true;
@@ -87,7 +85,7 @@
 
         //scene
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color('#000000');
+        // this.scene.background = new THREE.Color('#000000');
 
         //camera
         this.camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
@@ -105,8 +103,8 @@
         this.mesh = updateMeshByOptions(this.scene);
 
         //light
-        var ambientLight = new THREE.AmbientLight('#ffffff', 0.5);
-        ambientLight.position.set(-30, 30, 0);
+        var ambientLight = new THREE.AmbientLight(0x00ffff);
+        // ambientLight.position.set(0, 0, 0);
         this.scene.add(ambientLight);
 
         updateLightByOptions(this.scene);
@@ -177,13 +175,15 @@
 
         gui.add(options, 'ballMaterial',
             ['Lambert材质-Lambert',
-            'Phong材质-Phong']).onChange(function() {
+            'Phong材质-Phong',
+            'Standard材质-Standard']).onChange(function() {
             this.mesh = updateMeshByOptions(self.scene);
         });
 
         gui.add(options, 'planeMaterial',
             ['Lambert材质-Lambert',
-            'Phong材质-Phong']).onChange(function() {
+            'Phong材质-Phong',
+            'Standard材质-Standard']).onChange(function() {
             this.mesh = updateMeshByOptions(self.scene);
         })
     };
