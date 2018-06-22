@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pure WebGL</title>
+
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../lib/datGUI/dat.gui.css">
+</head>
+<body>
+<div id="render" style="overflow: hidden;position: relative;"></div>
+
+<script type="text/javascript" src="../lib/datGUI/dat.gui.min.js"></script>
+<script type="text/javascript" src="../lib/stats/stats.min.js"></script>
+<script type="text/javascript" src="sylvester.js"></script>
+<script type="text/javascript" src="glUtils.js"></script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aPosition;
+
+    void main() {
+        gl_Position = vec4(aPosition, 1.0);
+        gl_PointSize = 10.0;
+    }
+</script>
+
+<script id="shader-fs" type="x-shader/x-fragment">
+    precision mediump float;
+
+    uniform vec4 aColor;
+
+    void main() {
+        gl_FragColor = aColor;
+    }
+</script>
+
+<script>
+    'use strict';
+
+    //获取上下文
+    var canvas = document.createElement('canvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    document.getElementById('render').appendChild(canvas);
+    var gl = canvas.getContext('experimental-webgl');
+
+    //创建shader
+    var vertexShader = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vertexShader, document.getElementById('shader-vs').textContent.toString());
+    var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fragShader, document.getElementById('shader-fs').textContent.toString());
+
+    //编译shader程序
+    gl.compileShader(vertexShader);
+    if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+        console.error('compile vertex shader failed\n' + gl.getShaderInfoLog(vertexShader));
+    }
+    gl.compileShader(fragShader);
+    if (!gl.getShaderParameter(fragShader, gl.COMPILE_STATUS)) {
+        console.error('compile frag shader failed\n' + gl.getShaderInfoLog(fragShader));
+    }
+
+    //创建链接程序
+    var program = gl.createProgram();
+
+    //链接shader
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragShader);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        console.error('link shader failed\n' + gl.getProgramInfoLog(program));
+    }
+
+    //指定使用的程序
+    gl.useProgram(program);
+
+    //------------------------- 到此gl环境已准备好---------------------------
+
+    //顶点位置及颜色
+    var vertex = new Float32Array([0, 0, 0]);
+    var vColor = new Float32Array([0, 1, 1, 1]);
+
+    //将参数传递给shader
+    var aPosition = gl.getAttribLocation(program, 'aPosition');
+    gl.vertexAttrib3fv(aPosition, vertex);
+    var aColor = gl.getUniformLocation(program, 'aColor');
+    gl.uniform4fv(aColor, vColor);
+
+    //准备上下文
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.clearColor(0, 0, 0, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    //绘制
+    gl.drawArrays(gl.POINTS, 0, 1);
+</script>
+</body>
+</html>
